@@ -1,0 +1,2 @@
+findstr "print" *.lua
+pause

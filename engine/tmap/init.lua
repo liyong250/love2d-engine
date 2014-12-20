@@ -1,0 +1,1 @@
+love.tmap = require('thirdparty.atl.loader')
