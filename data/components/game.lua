@@ -350,7 +350,6 @@ function t.remove_multi_rows( com, rows )
 		end
 	end
 	-- 下移
-	for k,v in pairs(rows) do print(k,v) end
 	for _, row in pairs( rows ) do
 		t.move_down_rows_above( com, row )
 	end

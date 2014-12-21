@@ -59,7 +59,7 @@ function t:enter(pre, drawable_list, next_state, ...)
 		love.util.trace("WARNING", "No fading-pictures specified")
 		love.state.switch(next_state, ...)
 	else
-		t.next_state = next_state
+		t.next_state = assert(next_state)
 		t.next_state_params = {...}
 		t.duration = duration or 1
 		t.drawable_list = drawable_list

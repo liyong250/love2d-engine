@@ -17,6 +17,10 @@ for _, func in pairs(funcs_need_wrap) do
 	end
 end
 
+--[[
+扩展的UI元素 
+]]
+
 -- 创建菜单
 function love.ui.createMenu(world, btns, x, y, w, h)
 	local grid = world:attr('create_ui', "grid")

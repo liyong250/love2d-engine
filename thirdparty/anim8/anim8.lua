@@ -243,13 +243,18 @@ function Animation:update(dt)
 
   self.timer = self.timer + dt
   local loops = math.floor(self.timer / self.totalDuration)
+  self.position = seekFrameIndex(self.intervals, self.timer)
+
   if loops ~= 0 then
     self.timer = self.timer - self.totalDuration * loops
+	self.position = seekFrameIndex(self.intervals, self.timer)
     local f = type(self.onLoop) == 'function' and self.onLoop or self[self.onLoop]
     f(self, loops)
   end
+end
 
-  self.position = seekFrameIndex(self.intervals, self.timer)
+function Animation:setOnLoop( onloop )
+	self.onLoop = onloop
 end
 
 function Animation:pause()

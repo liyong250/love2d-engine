@@ -13,7 +13,7 @@
 	* move(direction_x, direction_y)
 		(direction_x, direction_y)表示的向量指明了需要移动的方向
 * 其他强制要求
-	* love.world:cango( object, x, y )
+	* World:cango( object, x, y )
 		返回object是否可以移动到世界的(x,y)处
 * 用法示例
 	* 让人物可移动，速度是每秒100像素，初始位置是（0,0），并且位置信息表示人物脚所在的地方
@@ -44,7 +44,7 @@ local function try_set_pos(self, newx, newy)
 	end
 	self.owner:emit('changeVisual', dir)
 	-- 检测是否可以走
-	newx, newy = love.world:attr('cango', self.owner, newx, newy)
+	newx, newy = World:attr('cango', self.owner, newx, newy)
 	if newx ~= false then
 	-- 发布事件
 		self.owner:emit('move_' .. dir)-- 移动！同时修改外观（朝向不同方向）

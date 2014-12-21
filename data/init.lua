@@ -30,6 +30,12 @@ love.util.loadDirectoryFiles(
 			data.font[ short_name .. "48" ] = love.graphics.newFont(path .. filename, 48)
 		end
 	)
+--[[
+data.font.pixel = love.graphics.newImageFont(dir .. "/assets/abc.png",
+	    " abcdefghijklmnopqrstuvwxyz" ..
+	    "ABCDEFGHIJKLMNOPQRSTUVWXYZ0" ..
+	    "123456789.,!?-+/():;%&`'*#=[]\"")
+]]
 
 
 --[[ particle ]]
@@ -128,12 +134,7 @@ data.prefabs = love.util.loadDirectoryFiles(
 		path, 
 		{'lua'},
 		function(filename, short_name, extension)
-			return 
-				function(...)
-					local info = require(path .. '.' .. short_name)
-					info.name = short_name
-					return info
-				end
+			return require(path .. '.' .. short_name)
 		end
 	)
 
@@ -164,6 +165,17 @@ love.util.loadDirectoryFiles(
 		end
 	)
 
+
+--[[ skin ]]
+local reqpath = ... .. '.skin.'
+local path = love.util.libPath(reqpath)
+
+data.skin = {}
+local folders = love.filesystem.getDirectoryItems( path )
+for _, folder in ipairs(folders) do
+	print("----------- Loading skin", path, folder)
+	data.skin[folder] = assert(require(reqpath .. folder))
+end
 
 
 -- 最后，把生成好的data返回

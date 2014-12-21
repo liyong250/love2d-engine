@@ -1,1 +1,0 @@
-return {changeVisual = true, move_right = true, move_down = true, move_up = true, moved = true, move_left = true}

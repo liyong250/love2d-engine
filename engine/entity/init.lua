@@ -1,5 +1,5 @@
 local guid = 1
-love.unhandled_events = {}
+
 -- 存档功能的实现
 
 
@@ -134,7 +134,9 @@ end
 local function emit(entity, name, ...)
 	if entity._paused then return end
 	if not entity._event[name] then 
-		love.unhandled_events[name] = true
+		if string.sub(name, 1, 1) == '!' then
+			log('warning', 'unhandled event', name)
+		end
 		return 
 	end
 	local return_value
@@ -157,7 +159,7 @@ local function rmcoms(entity)
 	end
 end
 
-local function MakeEntity(getinfo, ...)
+local function MakeEntity(init, ...)
 	-- 基本的entity
 	t = 
 	{
@@ -190,21 +192,10 @@ local function MakeEntity(getinfo, ...)
 	}
 	function t:togglePause() self._paused = not self._paused end
 	function t:getcoms() return self._com end
-	-- 特化
-	local info = getinfo()
-	-- 添加组件
-	if type(info.coms) == 'function' then
-		local coms = info.coms()
-		assert(type(coms) == 'table')
-		for _, com in pairs(coms) do
-			t:com(unpack(com))
-		end
-	end
 	-- 初始化
-	if type(info.init) == 'function' then
-		info.init(t, ...)
-	end
-	t.name = info.name
+	assert(type(init) == 'function')
+	init(t, ...)
+
 	-- 全局ID自增
 	guid = guid + 1
 	return t

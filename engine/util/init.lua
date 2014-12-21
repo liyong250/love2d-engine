@@ -1,14 +1,19 @@
 love.util = require('thirdparty.lume')
 love.util.makeConst = require("lib.const")
 
+-- 日志
+log = love.util.trace
+
 -- 路径转换
 love.util.libPath =
 	function(path)
-		return string.gsub(path, "%.", '/')
+		local result = string.gsub(path, "%.", '/')
+		return result
 	end
 love.util.requirePath =
 	function(path)
-		return string.gsub(path, '/', "%.")
+		local result = string.gsub(path, '/', "%.")
+		return result
 	end
 
 -- 遍历文件夹下的文件
@@ -58,4 +63,5 @@ end
 function love.util.inRect(px, py, x, y, w, h)
 	if px > x and px < x + w and py > y and py < y + h then return true end 
 end
+
 

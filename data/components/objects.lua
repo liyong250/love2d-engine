@@ -8,7 +8,6 @@
 			* spawn_entity( entity )
 		* spanw_entity返回的entity_object必须具有的属性：
 			* name 用来创建该实体的名称
-			* world 所属的世界
 * 目标Entity必须具有的属性和事件
 	无
 * 向目标Entity上添加的属性和事件
@@ -47,7 +46,7 @@ local function onload(self, t)
 	-- 创建所有entity，更新GUID，记录GUID和entity的对应关系。
 	for name, datas in pairs(t) do
 		for _, data in pairs(datas) do
-			local entity = self.world:emit('spawn_entity', name)
+			local entity = World:emit('spawn_entity', name)
 			entity.guid = data.guid
 			guid2entity[data.guid] = entity
 		end
@@ -64,7 +63,13 @@ end
 
 local function ondraw_normal(self)
 	for prefab in pairs(self._entities) do
+	if prefab.draw == nil then
+		print(prefab)
+		for k,v in pairs(prefab) do print(k,v) end
+		os.exit(0)
+	else
 		prefab:draw()
+	end
 	end
 end
 
@@ -86,7 +91,6 @@ local function create(t, draw_order_by)
 	local res = 
 	{
 		_entities = {},
-		world = t,
 
 		onremove = onremove, 
 		onupdate = onupdate,
@@ -112,7 +116,6 @@ local function create(t, draw_order_by)
 		-- 设置属性
 		t.remove = remove
 		t.name = name
-		t.world = res.world
 		return t;
 	end
 

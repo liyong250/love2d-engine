@@ -14,6 +14,7 @@
 	* update中进行检测并发布的事件
 * 其他强制要求
 	* 必须根据实际需求修改update，确认需要发布哪些输入事件
+	* publisher must be the World
 * 用法实例
 ]]
 
@@ -32,7 +33,7 @@ local function update(self, dt)
 	-- 生成输入
 	local events = {}
 	-- 发布输入
-	publish_events(self, unpack(events))
+	--publish_events(self, unpack(events))
 end
 
 local function onremove_publisher(com)
@@ -73,7 +74,7 @@ local function onremove_listener(com)
 end
 
 local function listener(t)
-	t:emit('!addInputListener', t)	-- 让属主可以监听事件
+	World:emit('!addInputListener', t)	-- 让属主可以监听事件
 	return 
 		{
 			owner = t,
