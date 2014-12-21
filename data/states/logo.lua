@@ -27,7 +27,7 @@ function t.fade_out()
 		'linear',
 		function()
 			if t.drawable_index == #t.drawable_list then
-				love.state.switch(t.next_state)
+				love.state.switch(t.next_state, unpack(next_state_params))
 			else
 				t.drawable_index = t.drawable_index + 1
 				t.drawable = t.drawable_list[t.drawable_index]
@@ -54,12 +54,13 @@ function t:update(dt)
 	end
 end
 
-function t:enter(pre, drawable_list, next_state, duration)
+function t:enter(pre, drawable_list, next_state, ...)
 	if #drawable_list == 0 then
 		love.util.trace("WARNING", "No fading-pictures specified")
-		love.state.switch(next_state)
+		love.state.switch(next_state, ...)
 	else
 		t.next_state = next_state
+		t.next_state_params = {...}
 		t.duration = duration or 1
 		t.drawable_list = drawable_list
 		t.drawable_index = 1
@@ -71,7 +72,7 @@ function t:enter(pre, drawable_list, next_state, duration)
 end
 
 function t:keypressed()
-	love.state.switch(t.next_state)
+	love.state.switch(t.next_state, unpack(t.next_state_params))
 end
 
 

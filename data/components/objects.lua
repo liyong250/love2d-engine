@@ -5,15 +5,15 @@
 			* spawn( entity_name ) 返回 entity_object
 			* remove( entity_object ) 返回值自定义
 		* 必须发布的事件：
-			*spawn_entity( entity )
-		* spanw返回的entity_object必须具有的属性：
+			* spawn_entity( entity )
+		* spanw_entity返回的entity_object必须具有的属性：
 			* name 用来创建该实体的名称
 			* world 所属的世界
 * 目标Entity必须具有的属性和事件
 	无
 * 向目标Entity上添加的属性和事件
-	spawn(entity_name)
-	remove(entity_object)
+	spawn_entity(entity_name)
+	remove_entity(entity_object)
 * 其他强制要求
 	该组件应当应用于“世界”实体。该实体用来管理整个游戏。
 * 用法示例
@@ -47,7 +47,7 @@ local function onload(self, t)
 	-- 创建所有entity，更新GUID，记录GUID和entity的对应关系。
 	for name, datas in pairs(t) do
 		for _, data in pairs(datas) do
-			local entity = self.world:emit('spawn', name)
+			local entity = self.world:emit('spawn_entity', name)
 			entity.guid = data.guid
 			guid2entity[data.guid] = entity
 		end
@@ -106,8 +106,8 @@ local function create(t, draw_order_by)
 		res._entities[t] = nil
 	end
 
-	local function spawn(name)
-		local t = love.entity.MakeEntity(Data.prefabs[name])
+	local function spawn(name, ...)
+		local t = love.entity.MakeEntity(Data.prefabs[name], ...)
 		res._entities[t] = true;
 		-- 设置属性
 		t.remove = remove

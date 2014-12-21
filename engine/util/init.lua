@@ -42,3 +42,20 @@ function love.util.loadDirectoryFiles(path, types, loader)
 		)
 	return res
 end
+
+-- 点的位置是否在窗口内部
+-- 重载的形式 intersect( point )
+function love.window.intersect( x, y )
+	local w, h = love.window.getDimensions()
+	if type(y) ~= 'number' then
+		local point = x
+		x, y = point.x, point.y
+	end
+	if x < 0 or y < 0 or x > w or y > h then return true end
+end
+
+-- 相交判断 
+function love.util.inRect(px, py, x, y, w, h)
+	if px > x and px < x + w and py > y and py < y + h then return true end 
+end
+

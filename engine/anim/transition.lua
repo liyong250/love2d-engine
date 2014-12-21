@@ -1,6 +1,9 @@
 --[[
-GG
-转场效果的实现
+转场效果的实现。
+使用：
+* new一个转场实例
+* draw和update
+* callback中载入下一个场景。调用revert显示出来
 ]]
 local trans = {}
 

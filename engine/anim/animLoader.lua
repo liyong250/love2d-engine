@@ -1,6 +1,10 @@
 --[[
-GG
-20141018
+载入标准动画。
+标准动画指的是包含clone()/getWidth()/getHeight()/draw()/update()函数的table。
+
+动画可以是帧动画和矢量动画。
+* 帧动画动画由Png_info来定义，定义了使用的png文件是哪个、png文件的哪些区域构成动画、动画的速度、动画的名称等。
+* 矢量动画直接载入相应的lua文件即可。
 ]]
 
 local function LoadAnims(files, png_info)

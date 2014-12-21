@@ -6,9 +6,9 @@ function love.load()
 	Conf = require('save.config')
 	Data = require('data')
 	-- 设置背景色
-	local bk_color = 50
-	love.graphics.setBackgroundColor( bk_color + 20, bk_color, bk_color, 255)
+	love.graphics.setBackgroundColor( 70, 50, 50, 255)
 	-- 进入游戏
+	love.graphics.setFont(Data.font.ch24)
 	love.state.switch(
 		Data.states.logo, -- 显示logo
 		{
@@ -35,4 +35,5 @@ end
 function love.focus(f)
 end
 function love.quit()
+	love.storage.save('unhandledEvents.lua', love.unhandled_events)
 end

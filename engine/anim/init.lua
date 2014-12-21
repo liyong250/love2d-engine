@@ -7,3 +7,6 @@ love.anim.animGroup = require(... .. '.animGroup')
 
 -- 转场动画的实现
 love.anim.trans = require(... .. '.transition')
+
+-- 粒子系统的实现
+love.anim.particle = require(... .. '.particle')

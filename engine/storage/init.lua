@@ -10,17 +10,10 @@ end
 -- 判断require是否会成功
 function storage.exist(filepath)
 	local path = love.util.libPath( filepath ) .. '.lua'
-	local file = io.open( path, 'r' ) -- 读一下，判断是否存在
-	if file then
-		file:close()
-		return true
+	if love.filesystem.exists(path) then return true
 	else
 		local path = love.util.libPath( filepath ) .. '/init.lua'
-		local file = io.open( path, 'r' ) -- 读一下，判断是否存在
-		if file then
-			file:close()
-			return true
-		end
+		return love.filesystem.exists(path)
 	end
 end
 

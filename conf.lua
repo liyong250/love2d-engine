@@ -1,13 +1,16 @@
 local conf = require("save.config")
 
+local english_name = "love2d"
+local chinese_name = "爱上2D"
+
 function love.conf(t)
 
-    t.identity = "godguy"                   -- The name of the save directory (string)
+    t.identity = "LOVE/" .. english_name                   -- The name of the save directory (string)
     t.version = "0.9.1"                -- The LÖVE version this game was made for (string)
     t.console = true                  -- Attach a console (boolean, Windows only)
 
-    t.window.title = "ELSFK"        -- The window title (string)
-    t.window.icon = "icon.png"                -- Filepath to an image to use as the window's icon (string)
+    t.window.title = chinese_name        -- The window title (string)
+    t.window.icon = nil                -- Filepath to an image to use as the window's icon (string)
     t.window.width = conf.winWidth              -- The window width (number)
     t.window.height = conf.winHeight              -- The window height (number)
     t.window.borderless = false        -- Remove all border visuals from the window (boolean)

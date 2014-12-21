@@ -1,5 +1,5 @@
 local guid = 1
-
+love.unhandled_events = {}
 -- 存档功能的实现
 
 
@@ -86,12 +86,14 @@ local function draw(entity)
 	for _, vcom in pairs(entity._vcom) do
 		vcom:ondraw()
 	end
+	if entity.ondraw then entity:ondraw() end
 end
 local function update(entity, dt)
 	if entity._paused then return end
 	for name, com in pairs(entity._com) do
 		if com.onupdate then com:onupdate(dt) end
 	end
+	if entity.onupdate then entity:onupdate(dt) end
 end
 
 -- 属性组件
@@ -132,7 +134,7 @@ end
 local function emit(entity, name, ...)
 	if entity._paused then return end
 	if not entity._event[name] then 
-		-- love.util.trace('warning', 'unhandled event', name)
+		love.unhandled_events[name] = true
 		return 
 	end
 	local return_value
@@ -155,7 +157,7 @@ local function rmcoms(entity)
 	end
 end
 
-local function MakeEntity(getinfo)
+local function MakeEntity(getinfo, ...)
 	-- 基本的entity
 	t = 
 	{
@@ -200,7 +202,7 @@ local function MakeEntity(getinfo)
 	end
 	-- 初始化
 	if type(info.init) == 'function' then
-		info.init(t)
+		info.init(t, ...)
 	end
 	t.name = info.name
 	-- 全局ID自增

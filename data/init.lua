@@ -16,8 +16,21 @@ data.shader = love.util.loadDirectoryFiles(
 
 --[[ font ]]
 data.font = {}
-data.font.big = love.graphics.newFont(50)
-data.font.medium = love.graphics.newFont(20)
+data.font.en48 = love.graphics.newFont(48)
+data.font.en18 = love.graphics.newFont(18)
+local path = ... .. '/font/'
+love.util.loadDirectoryFiles(
+		path, 
+		{'ttf'},
+		function(filename, short_name, extension)
+			data.font[ short_name .. "12" ] = love.graphics.newFont(path .. filename, 12)
+			data.font[ short_name .. "18" ] = love.graphics.newFont(path .. filename, 18)
+			data.font[ short_name .. "24" ] = love.graphics.newFont(path .. filename, 24)
+			data.font[ short_name .. "32" ] = love.graphics.newFont(path .. filename, 32)
+			data.font[ short_name .. "48" ] = love.graphics.newFont(path .. filename, 48)
+		end
+	)
+
 
 --[[ particle ]]
 local path = ... .. '.particle'

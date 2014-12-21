@@ -4,7 +4,7 @@ local w = 100
 local function draw()
 	local r1 = 0
 	local r2 = math.pi * 2
-	local cnt = 200
+	local cnt = 20
 	local step_rad = (r2 - r1) / cnt
 	local radius = 6
 	local ring_radius = w / 2 - radius - 10
@@ -19,8 +19,7 @@ local function draw()
 	g.setColor(255, 255, 255, 255)
 end
 
-local raw = love.static.drawImage(w, w, draw)--, Data.shader.blur)
-local img = {raw = raw}
+local img = {raw = love.static.drawImage(w, w, draw, Data.shader.blur)}
 
 function img:draw(x,y)
 	g.draw(self.raw, x, y)
